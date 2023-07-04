@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 1234;
 
 const sampleDB = {
-  "0x6208E657cdE072C248B9Ff224EE6f83255394d0f": {
-    address: "0x6208E657cdE072C248B9Ff224EE6f83255394d0f",
+  "0xC89Ce4735882C9F0f0FE26686c53074E09B0D550": {
+    address: "0xC89Ce4735882C9F0f0FE26686c53074E09B0D550",
     network: "ethereum",
-    deploymentBlock: 10,
+    deploymentBlock: 5,
   },
   "0xF4d60295bC6f9497d5eA101aFCD9742Efd466373": {
     address: "0xF4d60295bC6f9497d5eA101aFCD9742Efd466373",
@@ -20,25 +20,10 @@ const sampleDB = {
   },
 };
 
-app.get("/getContractAddress", (req, res) => {
-  const contractId = req.headers.contractid;
-  const contract = sampleDB[contractId];
-
-  res.send(contract.address);
-});
-
-app.get("/getContractNetwork", (req, res) => {
-  const contractId = req.headers.contractid;
-  const contract = sampleDB[contractId];
-
-  res.send(contract.network);
-});
-
-app.get("/getContractDeploymentBlock", (req, res) => {
-  const contractId = req.headers.contractid;
-  const contract = sampleDB[contractId];
-
-  res.send(contract.deploymentBlock);
+app.get("/contracts/:id", (req, res) => {
+  const id = req.params.id;
+  const contract = sampleDB[id];
+  res.send(JSON.stringify(contract));
 });
 
 app.listen(port, () => {
