@@ -8,15 +8,15 @@ const sampleDB = {
     network: "ethereum",
     deploymentBlock: 5,
   },
-  "0xF4d60295bC6f9497d5eA101aFCD9742Efd466373": {
-    address: "0xF4d60295bC6f9497d5eA101aFCD9742Efd466373",
-    network: "matic",
-    deploymentBlock: 6,
+  "0x9b1f7F645351AF3631a656421eD2e40f2802E6c0": {
+    address: "0x9b1f7F645351AF3631a656421eD2e40f2802E6c0",
+    network: "ethereum",
+    deploymentBlock: 11,
   },
-  "0x95256A32cdd07047174771fcb682A3c1a0b2dC89": {
-    address: "0x95256A32cdd07047174771fcb682A3c1a0b2dC89",
+  "0x0E696947A06550DEf604e82C26fd9E493e576337": {
+    address: "0x0E696947A06550DEf604e82C26fd9E493e576337",
     network: "arbitrum",
-    deploymentBlock: 3323,
+    deploymentBlock: 17,
   },
 };
 
