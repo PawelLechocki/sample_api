@@ -18,11 +18,14 @@ const Contract = mongoose.model('contracts', contractSchema);
 
 app.get("/contracts/:id", async (req, res) => {
   const { id } = req.params;
+  console.info('Finding ' + id)
   await mongoose.connect(
     connection
   );
   const query = Contract.where({ id: id });
   const contract = await query.findOne();
+  console.info('Found: ' + JSON.stringify(contract))
+  console.info(contract)
   res.send(JSON.stringify(contract));
 });
 
@@ -31,13 +34,16 @@ app.post("/add", bodyParser.json(), async (req, res) => {
   await mongoose.connect(
     connection
   );
+  console.info('connected')
   const dupa = new Contract({
     id: id,
     address: address,
     network: network,
     deploymentBlock: deploymentBlock
   });
+  console.info('saving ' + dupa)
   await dupa.save();
+  console.info('saved')
   res.send(JSON.stringify('Added Contract!'));
 });
 
