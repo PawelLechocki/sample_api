@@ -1,15 +1,13 @@
 // Simple CRUD with Mongo to save contract data
 
-import express from "express";
-import { mongoose, Schema } from "mongoose";
-import bodyParser from "body-parser";
-import dotenv from 'dotenv';
-dotenv.config();
-
+const express = require('express')
+const bodyParser = require("body-parser");
+const mongoose = require('mongoose')
+require('dotenv').config();
 const app = express();
 const port = process.env.PORT || "80";
 const connection = process.env.CONNECTION;
-const contractSchema = new Schema({
+const contractSchema = new mongoose.Schema({
   id: String,
   address: String,
   network: String,
