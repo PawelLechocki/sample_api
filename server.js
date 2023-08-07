@@ -1,29 +1,46 @@
-const express = require("express");
+// Simple CRUD with Mongo to save contract data
+
+import express from "express";
+import { mongoose, Schema } from "mongoose";
+import bodyParser from "body-parser";
+import dotenv from 'dotenv';
+dotenv.config();
+
 const app = express();
-const port = process.env.PORT || '80';
+const port = process.env.PORT || "80";
+const connection = process.env.CONNECTION;
+const contractSchema = new Schema({
+  id: String,
+  address: String,
+  network: String,
+  deploymentBlock: Number,
+});
 
-const sampleDB = {
-  "Tesco": {
-    address: "0xC89Ce4735882C9F0f0FE26686c53074E09B0D550",
-    network: "ethereum",
-    deploymentBlock: 5,
-  },
-  "Waitrose": {
-    address: "0x9b1f7F645351AF3631a656421eD2e40f2802E6c0",
-    network: "ethereum",
-    deploymentBlock: 11,
-  },
-  "Morrisons": {
-    address: "0x0E696947A06550DEf604e82C26fd9E493e576337",
-    network: "ethereum",
-    deploymentBlock: 17,
-  },
-};
+const Contract = mongoose.model('contracts', contractSchema);
 
-app.get("/contracts/:id", (req, res) => {
-  const id = req.params.id;
-  const contract = sampleDB[id];
+app.get("/contracts/:id", async (req, res) => {
+  const { id } = req.params;
+  await mongoose.connect(
+    connection
+  );
+  const query = Contract.where({ id: id });
+  const contract = await query.findOne();
   res.send(JSON.stringify(contract));
+});
+
+app.post("/add", bodyParser.json(), async (req, res) => {
+  const { id, address, network, deploymentBlock } = req.body;
+  await mongoose.connect(
+    connection
+  );
+  const dupa = new Contract({
+    id: id,
+    address: address,
+    network: network,
+    deploymentBlock: deploymentBlock
+  });
+  await dupa.save();
+  res.send(JSON.stringify('Added Contract!'));
 });
 
 app.listen(port, () => {
