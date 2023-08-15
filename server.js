@@ -9,6 +9,7 @@ const port = process.env.PORT || "80";
 const connection = process.env.CONNECTION;
 const contractSchema = new mongoose.Schema({
   id: String,
+  name: String,
   address: String,
   network: String,
   deploymentBlock: Number,
@@ -30,13 +31,14 @@ app.get("/contracts/:id", async (req, res) => {
 });
 
 app.post("/add", bodyParser.json(), async (req, res) => {
-  const { id, address, network, deploymentBlock } = req.body;
+  const { id, name, address, network, deploymentBlock } = req.body;
   await mongoose.connect(
     connection
   );
   console.info('connected')
   const dupa = new Contract({
     id: id,
+    name: name,
     address: address,
     network: network,
     deploymentBlock: deploymentBlock
