@@ -36,15 +36,15 @@ app.post("/add", bodyParser.json(), async (req, res) => {
     connection
   );
   console.info('connected')
-  const dupa = new Contract({
+  const contractObj = new Contract({
     id: id,
     name: name,
     address: address,
     network: network,
     deploymentBlock: deploymentBlock
   });
-  console.info('saving ' + dupa)
-  await dupa.save();
+  console.info('saving ' + contractObj)
+  await contractObj.save();
   console.info('saved')
   res.send(JSON.stringify('Added Contract!'));
 });
